@@ -1,0 +1,3 @@
+[submodule "cocos-menu-bar"]
+	path = cocos-menu-bar
+	url = git@github.com:bruno02221/cocos-menu-bar.git
