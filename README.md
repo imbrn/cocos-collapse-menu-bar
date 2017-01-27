@@ -6,6 +6,4 @@ the top of you screen.
 
 ## Features
 
-* Add items to left
-* Add items to right
-* Custom background
+* Depends on [cocos-menu-bar](https://github.com/bruno02221/cocos-menu-bar)
