@@ -14,19 +14,22 @@ namespace collapsemenubar {
 ///
 class CollapseMenuBar: public cocos2d::ui::Widget {
 protected:
-  CollapseMenuBar(menubar::MenuBar *menu_bar, float showing);
+  CollapseMenuBar(menubar::MenuBar *menu_bar, float showing, float pinned);
 
 public:
-  static CollapseMenuBar *create(menubar::MenuBar *menu_bar, float showing = false);
+  static CollapseMenuBar *create(menubar::MenuBar *menu_bar, float showing = false, float pinned = false);
   virtual ~CollapseMenuBar() {}
 
   void ShowInstantly();
   void HideInstantly();
   void Show();
   void Hide();
+  void Pin();
+  void Unpin();
 
   menubar::MenuBar *get_menu_bar();
   bool is_showing() const;
+  bool is_pinned() const;
 
 protected:
   virtual bool init() override;
@@ -39,7 +42,8 @@ private:
   void ApplyInitialVisibility();
 
 private:
-  float showing_;
+  bool showing_;
+  bool pinned_;
   menubar::MenuBar *menu_bar_ = nullptr;
   GestureContainer *gesture_container_ = nullptr;
   CollapseAction collapse_action_;

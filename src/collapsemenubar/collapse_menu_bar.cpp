@@ -2,14 +2,15 @@
 
 namespace collapsemenubar {
 
-CollapseMenuBar::CollapseMenuBar(menubar::MenuBar *menu_bar, float showing):
+CollapseMenuBar::CollapseMenuBar(menubar::MenuBar *menu_bar, float showing, float pinned):
       menu_bar_(menu_bar),
       showing_(showing),
+      pinned_(pinned),
       collapse_action_(this) {
 }
 
-CollapseMenuBar *CollapseMenuBar::create(menubar::MenuBar *menu_bar, float showing) {
-  CollapseMenuBar *obj = new CollapseMenuBar(menu_bar, showing);
+CollapseMenuBar *CollapseMenuBar::create(menubar::MenuBar *menu_bar, float showing, float pinned) {
+  CollapseMenuBar *obj = new CollapseMenuBar(menu_bar, showing, pinned);
   if (obj->init()) {
     obj->autorelease();
     return obj;
@@ -55,7 +56,7 @@ void CollapseMenuBar::InitMenuBar() {
 }
 
 void CollapseMenuBar::ApplyInitialVisibility() {
-  if (showing_) {
+  if (showing_ || pinned_) {
     ShowInstantly();
   } else {
     HideInstantly();
@@ -78,8 +79,19 @@ void CollapseMenuBar::Show() {
 }
 
 void CollapseMenuBar::Hide() {
-  showing_ = false;
-  collapse_action_.Hide(0.15f);
+  if (!pinned_) {
+    showing_ = false;
+    collapse_action_.Hide(0.15f);
+  }
+}
+
+void CollapseMenuBar::Pin() {
+  pinned_ = true;
+  ShowInstantly();
+}
+
+void CollapseMenuBar::Unpin() {
+  pinned_ = false;
 }
 
 menubar::MenuBar *CollapseMenuBar::get_menu_bar() {
@@ -88,6 +100,10 @@ menubar::MenuBar *CollapseMenuBar::get_menu_bar() {
 
 bool CollapseMenuBar::is_showing() const {
   return showing_;
+}
+
+bool CollapseMenuBar::is_pinned() const {
+  return pinned_;
 }
 
 }

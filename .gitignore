@@ -22,3 +22,6 @@ proj.win8.1-universal/
 Resources/
 .cocos-project.json
 CMakeLists.txt
+
+# cocos-menu-bar
+cocos-menu-bar/
