@@ -87,7 +87,7 @@ void CollapseMenuBar::Hide() {
 
 void CollapseMenuBar::Pin() {
   pinned_ = true;
-  ShowInstantly();
+  if (!showing_) Show();
 }
 
 void CollapseMenuBar::Unpin() {
